@@ -115,6 +115,7 @@ func (v Vec2) Dot(other Vec2) float32 {
 
 // --- Vec3 Operations ---
 
+
 // Add adds two Vec3 vectors
 func (v Vec3) Add(other Vec3) Vec3 {
 	return Vec3{X: v.X + other.X, Y: v.Y + other.Y, Z: v.Z + other.Z}
