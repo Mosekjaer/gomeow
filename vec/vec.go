@@ -102,7 +102,7 @@ func (v Vec2) Closest(vectors ...Vec2) Vec2 {
 // Normalize returns a unit vector in the same direction
 func (v Vec2) Normalize() Vec2 {
 	length := v.Length()
-	if length < 0 {
+	if length == 0 {
 		return Vec2{}
 	}
 	return Vec2{X: v.X / length, Y: v.Y / length}
@@ -114,7 +114,6 @@ func (v Vec2) Dot(other Vec2) float32 {
 }
 
 // --- Vec3 Operations ---
-
 
 // Add adds two Vec3 vectors
 func (v Vec3) Add(other Vec3) Vec3 {
@@ -192,7 +191,7 @@ func (v Vec3) Closest(vectors ...Vec3) Vec3 {
 // Normalize returns a unit vector in the same direction
 func (v Vec3) Normalize() Vec3 {
 	length := v.Length()
-	if length < 0 {
+	if length == 0 {
 		return Vec3{}
 	}
 	return Vec3{X: v.X / length, Y: v.Y / length, Z: v.Z / length}
