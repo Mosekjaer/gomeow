@@ -47,8 +47,7 @@ func WorldToScreenSimple(pos vec.Vec3, viewMatrix [16]float32, screenWidth, scre
 	return vec.Vec2{X: screenX, Y: screenY}, true
 }
 
-// Clamp restricts a value to a range
-// This is useful for keeping values within bounds clamps a value between min and max
+// Clamp clamps a value between min and max
 func Clamp(value, min, max float32) float32 {
 	if value < min {
 		return min
@@ -59,8 +58,7 @@ func Clamp(value, min, max float32) float32 {
 	return value
 }
 
-// Clamp restricts a value to a range
-// This is useful for keeping values within boundsInt clamps an integer value between min and max
+// ClampInt clamps an integer value between min and max
 func ClampInt(value, min, max int) int {
 	if value < min {
 		return min
