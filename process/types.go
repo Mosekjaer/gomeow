@@ -1,6 +1,6 @@
 package process
 
-// Process represents an OS process withrepresents an opened process
+// Process represents an opened process
 type Process struct {
 	Name   string
 	PID    int
