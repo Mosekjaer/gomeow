@@ -113,7 +113,7 @@ func ReadBool(p *process.Process, address uintptr) (bool, error) {
 // ReadString reads a null-terminated string
 func ReadString(p *process.Process, address uintptr, maxLen int) (string, error) {
 	if maxLen <= 0 {
-		maxLen = 64
+		maxLen = 256
 	}
 	buf := make([]byte, maxLen)
 	if err := Read(p, address, buf); err != nil {
