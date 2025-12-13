@@ -10,7 +10,7 @@ import (
 	"gomeow/process"
 )
 
-// Read reads memory from the target process using process_vm_readv
+// Read reads raw bytes fromreads memory from the target process using process_vm_readv
 func Read(p *process.Process, address uintptr, buffer []byte) error {
 	localIov := syscall.Iovec{
 		Base: &buffer[0],
