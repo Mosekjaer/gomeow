@@ -60,7 +60,7 @@ func AOBScanBytes(pattern string, data []byte, single bool) ([]uintptr, error) {
 
 	var results []uintptr
 
-	for i := 0; i < len(data)-len(patternBytes); i++ {
+	for i := 0; i <= len(data)-len(patternBytes); i++ {
 		match := true
 		for j, pb := range patternBytes {
 			if pb != wildCardByte && int(data[i+j]) != pb {
