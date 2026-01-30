@@ -94,7 +94,7 @@ func GetScreenSize() (width, height int) {
 	return int(C.get_screen_width()), int(C.get_screen_height())
 }
 
-// GetPixelColor gets the color of a pixel at the specified screen coordinates
+// GetPixel reads a single pixel color at the given screenColor gets the color of a pixel at the specified screen coordinates
 func GetPixelColor(x, y int) utils.Color {
 	pixel := C.get_pixel(C.int(x), C.int(y))
 	return utils.Color{
