@@ -19,4 +19,4 @@ go get gomeow
 
 ## Status
 
-Work in progress - more documentation coming soon.
+Under active development - more documentation coming soon.
