@@ -131,6 +131,10 @@ func Loop() bool {
 				opts.TargetY = winInfo.Y
 				rl.SetWindowPosition(winInfo.X, winInfo.Y)
 			}
+			if winInfo.Width != opts.TargetWidth || winInfo.Height != opts.TargetHeight {
+				opts.TargetWidth = winInfo.Width
+				opts.TargetHeight = winInfo.Height
+				rl.SetWindowSize(winInfo.Width, winInfo.Height)
 			}
 		}
 	}
