@@ -21,7 +21,7 @@ type State struct {
 
 var state State
 
-// Begin starts a new GUI frame - call this before drawing any GUI elements
+// Begin initializes the GUI frame and updatesstarts a new GUI frame - call this before drawing any GUI elements
 func Begin() {
 	pos := rl.GetMousePosition()
 	state.MousePos = vec.Vec2{X: pos.X, Y: pos.Y}
