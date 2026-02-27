@@ -49,6 +49,12 @@ func Slider(id int, x, y, w, h int, value, min, max float32) float32 {
 	if state.ActiveItem == id {
 		mouseX := state.MousePos.X
 		newValue := min + (mouseX-float32(x))/float32(w)*range_
+		if newValue < min {
+			newValue = min
+		}
+		if newValue > max {
+			newValue = max
+		}
 		return newValue
 	}
 
@@ -113,6 +119,12 @@ func VerticalSlider(id int, x, y, w, h int, value, min, max float32) float32 {
 	if state.ActiveItem == id {
 		mouseY := state.MousePos.Y
 		newValue := max - (mouseY-float32(y))/float32(h)*range_
+		if newValue < min {
+			newValue = min
+		}
+		if newValue > max {
+			newValue = max
+		}
 		return newValue
 	}
 
