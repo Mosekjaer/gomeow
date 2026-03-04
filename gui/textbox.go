@@ -40,7 +40,7 @@ func TextBox(id int, x, y, w, h int, text string, maxLen int) string {
 		if state.ActiveItem == 0 && state.MouseDown {
 			state.ActiveItem = id
 			// Calculate cursor position from click
-			clickX := int(state.MousePos.X) - x
+			clickX := int(state.MousePos.X) - x - 4
 			tbs.cursorPos = calculateCursorPos(tbs.text, clickX)
 		}
 	}
