@@ -4,60 +4,38 @@ package memory
 
 import (
 	"fmt"
-	"syscall"
-	"unsafe"
+
+	"golang.org/x/sys/unix"
 
 	"gomeow/process"
 )
 
-// Read reads memory from the target process using process_vm_readv
+// Read reads memory from the target process using process_vm_readv.
 func Read(p *process.Process, address uintptr, buffer []byte) error {
-	localIov := syscall.Iovec{
-		Base: &buffer[0],
-		Len:  uint64(len(buffer)),
-	}
-	remoteIov := syscall.Iovec{
-		Base: (*byte)(unsafe.Pointer(address)),
-		Len:  uint64(len(buffer)),
+	if len(buffer) == 0 {
+		return nil
 	}
 
-	_, _, errno := syscall.Syscall6(
-		syscall.SYS_PROCESS_VM_READV,
-		uintptr(p.PID),
-		uintptr(unsafe.Pointer(&localIov)),
-		1,
-		uintptr(unsafe.Pointer(&remoteIov)),
-		1,
-		0,
-	)
-	if errno != 0 {
-		return fmt.Errorf("process_vm_readv failed at 0x%X: %v", address, errno)
+	local := []unix.Iovec{{Base: &buffer[0], Len: uint64(len(buffer))}}
+	remote := []unix.RemoteIovec{{Base: address, Len: len(buffer)}}
+
+	if _, err := unix.ProcessVMReadv(p.PID, local, remote, 0); err != nil {
+		return fmt.Errorf("process_vm_readv failed at 0x%X: %v", address, err)
 	}
 	return nil
 }
 
-// Write writes memory to the target process using process_vm_writev
+// Write writes memory to the target process using process_vm_writev.
 func Write(p *process.Process, address uintptr, buffer []byte) error {
-	localIov := syscall.Iovec{
-		Base: &buffer[0],
-		Len:  uint64(len(buffer)),
-	}
-	remoteIov := syscall.Iovec{
-		Base: (*byte)(unsafe.Pointer(address)),
-		Len:  uint64(len(buffer)),
+	if len(buffer) == 0 {
+		return nil
 	}
 
-	_, _, errno := syscall.Syscall6(
-		syscall.SYS_PROCESS_VM_WRITEV,
-		uintptr(p.PID),
-		uintptr(unsafe.Pointer(&localIov)),
-		1,
-		uintptr(unsafe.Pointer(&remoteIov)),
-		1,
-		0,
-	)
-	if errno != 0 {
-		return fmt.Errorf("process_vm_writev failed at 0x%X: %v", address, errno)
+	local := []unix.Iovec{{Base: &buffer[0], Len: uint64(len(buffer))}}
+	remote := []unix.RemoteIovec{{Base: address, Len: len(buffer)}}
+
+	if _, err := unix.ProcessVMWritev(p.PID, local, remote, 0); err != nil {
+		return fmt.Errorf("process_vm_writev failed at 0x%X: %v", address, err)
 	}
 	return nil
 }
